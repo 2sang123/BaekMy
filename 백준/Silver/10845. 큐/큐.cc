@@ -1,129 +1,85 @@
 #include <iostream>
-#include <vector>
+#include <deque>
 #include <string>
+// -------- queue 원형과 유사하게 ------------
 using namespace std;
 
-int* arr = nullptr;
-int s = 0;
+class MyQueue {
+private:
+    deque<int> dq;
 
-void pushq(int a)
-{
-    int nSize = s + 1;
-    int* newArr = new int[nSize];
+public:
+    void pushq(int a) { 
+        dq.push_back(a);  // 뒤에 추가 (std::queue와 동일)
+    }
 
-    if (arr != nullptr)
-    {
-        for (int i = 0; i < s; i++)
-        {
-            newArr[i] = arr[i];
+    void popq() {
+        if (dq.empty()) {
+            cout << -1 << endl;
+        } else {
+            cout << dq.front() << endl;
+            dq.pop_front();  // 앞에서 제거
         }
-        delete[] arr;
     }
-    newArr[s] = a;
-    arr = newArr;
-    s = nSize;
-}
 
-void popq()
-{
-    if (s <= 0 || arr == nullptr)
-    {
-        cout << -1 << endl;
-        return;
+    void frontq() {
+        if (dq.empty()) {
+            cout << -1 << endl;
+        } else {
+            cout << dq.front() << endl;
+        }
     }
-    cout << arr[0] << endl;
-    int nSize = s -1;
-    if (nSize == 0)
-    {
-        delete[] arr;
-        arr = nullptr;
-        s = 0;
-        return;
-    }
-    
-    int* newArr = new int[nSize];
-    for (int i = 0; i < nSize; i++)
-    {
-        newArr[i] = arr[i+1];
-    }
-    delete[] arr;
-    arr = newArr;
-    s = nSize;
-}
 
-void frontq()
-{
-    if (s <= 0)
-    {
-        cout << -1 << endl;
-        return;
+    void backq() {
+        if (dq.empty()) {
+            cout << -1 << endl;
+        } else {
+            cout << dq.back() << endl;
+        }
     }
-    cout << arr[0] << endl;
-}
 
-void backq()
-{
-    if (s <= 0)
-    {
-        cout << -1 << endl;
-        return;
+    void emptyq() {
+        cout << (dq.empty() ? 1 : 0) << endl;
     }
-    else cout << arr[s-1] << endl;
-}
 
-void emptyq()
-{
-    if (s <= 0)
-    {
-        cout << 1 << endl;
+    int sizeq() {
+        return dq.size();
     }
-    else
-    {
-        cout << 0 << endl;
-    }
-}
-
-int sizeq()
-{
-    return s;
-}
+};
 int n;
-
-int main()
-{
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
-
-    cin >> n;
+int main() {
+    MyQueue q;
+    
+    cin>>n;
     string cmd;
     while (n--)
     {
-        cin >> cmd;
-        if (cmd == "push")
-        {
-            int in;
-            cin >> in;
-            pushq(in);
-        }
-        else if (cmd == "pop")
-        {
-            popq();
-        }
-        else if (cmd == "size")
-        {
-            cout << sizeq() << endl;
-        }
-        else if (cmd == "front")
-        {
-            frontq();
-        }
-        else if (cmd == "back")
-        {
-            backq();
-        }
-        else if (cmd == "empty")
-        {
-            emptyq();
-        }
+    cin >> cmd;
+    if (cmd == "push")
+    {
+        int in;
+        cin >> in;
+        q.pushq(in);
+    }
+    else if (cmd == "pop")
+    {
+        q.popq();
+    }
+    else if (cmd == "size")
+    {
+       cout << q.sizeq() << endl;
+    }
+    else if (cmd == "front")
+    {
+        q.frontq();
+    }
+    else if (cmd == "back")
+    {
+        q.backq();
+    }
+    else if (cmd == "empty")
+    {
+        q.emptyq();
+    }
     }
 }
