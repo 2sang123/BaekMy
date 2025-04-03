@@ -9,35 +9,24 @@ int m;
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(NULL);
-
-    cin >> n >>m;
     string s;
+    cin >> n >> m >> s;
+    int cnt = 0;
+    int res = 0;
 
-    string check;
-    for (int i = 0; i < (n*2)+1; i++)
-    {
-        if (i % 2 == 0)
-        {
-            check += 'I';
+    for (int i = 1; i < m - 1; i++) {
+        if (s[i - 1] == 'I' && s[i] == 'O' && s[i + 1] == 'I') {
+            cnt++;
+            if (cnt >= n) {
+                res++;
+            }
+            i++;
         }
-        else
-        {
-            check += 'O';
+        else {
+            cnt = 0;
         }
     }
-    cin >> s;
-    int cnt = 0;
-    int point = 0;
-    do
-    {
-        string str = s.substr(point, check.size());
-        if (str.compare(check) == 0)
-        {
-            cnt++;
-        }
-        point++;
-    } while (point < m - check.size()+1);
 
-    cout << cnt;
+    cout << res;
 }
 
