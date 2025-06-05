@@ -5,7 +5,7 @@
 using namespace std;
 
 int n;
-bool visited[100005] = { false, };
+bool visited[10005] = { false, };
 vector<pair<int, int>> graph[10005];
 int cnt = 0;
 int max_dist = 0;
