@@ -1,5 +1,6 @@
 #include <iostream>
 #include <algorithm>
+#include <iomanip>
 using namespace std;
 
 double a, b, c;
@@ -9,5 +10,5 @@ int main() {
     cin.tie(NULL);
     cin >> a >> b >> c;
     double d = a * c / b;
-    cout << d;
+    cout << fixed<< setprecision(7)<<d;
 }
