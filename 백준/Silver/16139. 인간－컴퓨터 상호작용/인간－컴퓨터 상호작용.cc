@@ -9,10 +9,14 @@ int main() {
     int n;
     cin >> s;
     cin >> n;
-    vector<vector<int>> ap(26, vector<int>(s.size()));
+    vector<vector<int>> ap(26, vector<int>(s.size()+1));
     for (int i = 0; i < s.size(); i++)
     {
-        ap[s[i] - 'a'][i]++;
+        int idx = s[i] - 'a';
+        for (int j = 0; j < 26; j++)
+        {
+            ap[j][i + 1] = ap[j][i] + (j == idx);
+        }
     }
     for (int i = 0; i < n; i++)
     {
@@ -20,10 +24,8 @@ int main() {
         int s, e;
         int sum = 0;
         cin >> c >> s >> e;
-        for (int j = s; j <= e; j++)
-        {
-            sum += ap[c - 'a'][j];
-        }
-        cout << sum << '\n';
+        int idx = c - 'a';
+        
+        cout << ap[idx][e + 1] - ap[idx][s] << '\n';
     }
 }
